@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        header{
+            display: block;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 2em;
+            font-weight: bold;
+            background-color: #223344;
+        }
+
+        #login{
+            display: block;
+            margin: 25px;
+            height: 200px;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        form{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>歡迎光臨，請輸入帳號密碼</header>
+    <div id="login">
+        <div>登入系統</div>
+        <form action="http://127.0.0.1:3000/signin" method="POST">
+            <div >帳號 <input type="text" name="account"></div>
+            <div>密碼 <input type="password" name="password"></div>
+            <button>登入</button>
+        </form>
+    </div>
+
+</body>
+</html>
