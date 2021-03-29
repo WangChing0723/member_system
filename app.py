@@ -27,8 +27,8 @@ def signup():
     account = request.form["account"]
     password = request.form["password"]
 
-    query_get_userinfo = f"SELECT * FROM website.user WHERE username = '{account}';"
-    mycursor.execute(query_get_userinfo)
+    query_get_userinfo = f"SELECT * FROM website.user WHERE username = (%s);"
+    mycursor.execute(query_get_userinfo, (account,))
     user_info = mycursor.fetchall()
 
     if user_info != []:
@@ -44,14 +44,13 @@ def signin():
     account = request.form["account"]
     password = request.form["password"]
 
-    query_get_userinfo = "SELECT name,username,password FROM website.user;"
-    mycursor.execute(query_get_userinfo)
+    query_get_userinfo = "SELECT name,username,password FROM website.user WHERE username=(%s) AND password=(%s);"
+    mycursor.execute(query_get_userinfo, (account, password))
     user_info = mycursor.fetchall()
 
-    for userinfo in user_info:
-        if account==userinfo[1] and password==userinfo[2]:
-            session["account"] = account
-            return redirect(f"/member/?name={userinfo[0]}")
+    if user_info != []:
+        session["account"] = account
+        return redirect(f"/member/?name={user_info[0][0]}")
     return redirect("/error/?message=帳號或密碼輸入錯誤")
 
 @app.route("/signout")
