@@ -26,18 +26,12 @@ def signup():
     name = request.form["name"]
     account = request.form["account"]
     password = request.form["password"]
-    existed_username = []
 
-    query_get_userinfo = "SELECT * FROM website.user;"
+    query_get_userinfo = f"SELECT * FROM website.user WHERE username = '{account}';"
     mycursor.execute(query_get_userinfo)
     user_info = mycursor.fetchall()
 
-    for userinfo in user_info:
-        username = userinfo[2]
-        if username not in existed_username:
-            existed_username.append(username)
-
-    if account in existed_username:
+    if user_info != []:
         return redirect("/error/?message=帳號已經被註冊")
     else:
         query_create_user = "INSERT INTO website.user (name, username, password) VALUES (%s,%s,%s)"
