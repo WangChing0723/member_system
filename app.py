@@ -16,9 +16,9 @@ def index():
 def signin():
     account = request.form["account"]
     password = request.form["password"]
-    session["account"] = account
 
     if account=="test" and password=="test":
+        session["account"] = account
         return redirect("/member/")
     else:
         return redirect("/error/")
