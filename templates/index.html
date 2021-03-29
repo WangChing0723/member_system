@@ -18,7 +18,18 @@
             background-color: #223344;
         }
 
-        #login{
+        #signup{
+            display: block;
+            margin: 25px;
+            height: 200px;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        #signin{
             display: block;
             margin: 25px;
             height: 200px;
@@ -35,11 +46,22 @@
     </style>
 </head>
 <body>
-    <header>歡迎光臨，請輸入帳號密碼</header>
-    <div id="login">
+    <header>歡迎光臨，請註冊登入系統</header>
+
+    <div id="signup">
+        <div>註冊帳號</div>
+        <form action="http://127.0.0.1:3000/signup" method="POST">
+            <div>姓名 <input type="text" name="name"></div>
+            <div>帳號 <input type="text" name="account"></div>
+            <div>密碼 <input type="password" name="password"></div>
+            <button>註冊</button>
+        </form>
+    </div>
+
+    <div id="signin">
         <div>登入系統</div>
         <form action="http://127.0.0.1:3000/signin" method="POST">
-            <div >帳號 <input type="text" name="account"></div>
+            <div>帳號 <input type="text" name="account"></div>
             <div>密碼 <input type="password" name="password"></div>
             <button>登入</button>
         </form>
