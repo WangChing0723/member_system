@@ -3,9 +3,11 @@ from flask import request
 from flask import redirect
 from flask import session
 from flask import render_template
+from flask import jsonify
 import mysql.connector
 
 app = Flask(__name__)
+app.config["JSON_AS_ASCII"] = False
 
 app.secret_key = b'\xe0\xab/0\xd04\xa7l\xf95\xd0\xdc="\x14\xa7'
 
@@ -27,7 +29,7 @@ def signup():
     account = request.form["account"]
     password = request.form["password"]
 
-    query_get_userinfo = f"SELECT * FROM website.user WHERE username = (%s);"
+    query_get_userinfo = "SELECT * FROM website.user WHERE username = (%s);"
     mycursor.execute(query_get_userinfo, (account,))
     user_info = mycursor.fetchall()
 
@@ -70,5 +72,22 @@ def member_info():
 def error():
     message = request.args.get("message", None)
     return render_template("error.html", message=message)
+
+@app.route("/api/users")
+def api_users():
+    username = request.args.get("username", None)
+    query_get_userinfo = "SELECT * FROM website.user WHERE username = (%s);"
+    mycursor.execute(query_get_userinfo, (username,))
+    user_info = mycursor.fetchall()
+
+    if user_info != []:
+        return jsonify({"data": {
+                                    "id": user_info[0][0],
+                                    "name": user_info[0][1],
+                                    "username": user_info[0][2]
+                                }
+                        })
+    else:
+        return jsonify({"data": None})
 
 app.run(port=3000)

@@ -28,6 +28,16 @@
         form{
             text-align: center;
         }
+
+        #searchForm{
+            margin: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #displayInfo{
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -36,5 +46,39 @@
     <form action="http://127.0.0.1:3000/signout">
         <button>登出系統</button>
     </form>
+
+    <div id="searchForm">
+        查詢會員姓名
+        <form>
+        <span><input type="text" name="username"></span>
+        <button>查詢</button>
+        </form>
+    </div>
+
+    <div id="displayInfo"></div>
+
+    <script>
+        const form = document.querySelector('#searchForm');
+        form.addEventListener('submit', function(e){
+            e.preventDefault();
+            const searchTerm = form.firstElementChild.username.value;
+            fetch(`http://127.0.0.1:3000/api/users?username=${searchTerm}`)
+            .then(res => {
+                return res.json();
+            })
+            .then(data =>{
+                if(data['data']!==null){
+                    name = data['data']['name'];
+                    username = data['data']['username'];
+                    let objTo = document.querySelectorAll("#displayInfo");
+                    objTo[0].innerText = `${name} (${username})`;
+                }
+                else{
+                    let objTo = document.querySelectorAll("#displayInfo");
+                    objTo[0].innerText = "查無資料";
+                }
+            })
+        })
+    </script>
 </body>
 </html>
