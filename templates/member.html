@@ -35,14 +35,25 @@
             font-weight: bold;
         }
 
+        #updateForm{
+            margin: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+
         #displayInfo{
             text-align: center;
         }
+
+        #displayInfo2{
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
     <header>歡迎光臨，這是會員頁</header>
-    <p>{{name}}，歡迎登入系統</p>
+    <p id="modify">{{name}}，歡迎登入系統</p>
     <form action="http://127.0.0.1:3000/signout">
         <button>登出系統</button>
     </form>
@@ -57,7 +68,18 @@
 
     <div id="displayInfo"></div>
 
+    <div id="updateForm">
+        更新我的姓名
+        <form>
+        <span><input type="text" name="username"></span>
+        <button>更新</button>
+        </form>
+    </div>
+
+    <div id="displayInfo2"></div>
+
     <script>
+        // 撈取查詢會員姓名資料並顯示在網頁上
         const form = document.querySelector('#searchForm');
         form.addEventListener('submit', function(e){
             e.preventDefault();
@@ -76,6 +98,35 @@
                 else{
                     let objTo = document.querySelectorAll("#displayInfo");
                     objTo[0].innerText = "查無資料";
+                }
+            })
+        })
+
+        // 撈取更新會員姓名資料並更新網頁上的姓名
+        const formUpdate = document.querySelector('#updateForm');
+        formUpdate.addEventListener('submit', function(e){
+            e.preventDefault();
+            const updateTerm = formUpdate.firstElementChild.username.value;
+            fetch("http://127.0.0.1:3000/api/user",
+                    {
+                        "body": JSON.stringify({"name": updateTerm}),
+                        "headers": {"content-type": "application/json"},
+                        "method": "POST"
+                    }
+            )
+            .then(res => {
+                return res.json();
+            })
+            .then(data =>{
+                if(Object.keys(data)[0] === "ok"){
+                    const modifyName = document.querySelector('#modify');
+                    modifyName.innerText = `${updateTerm}，歡迎登入系統`;
+                    let updateMessage = document.querySelector('#displayInfo2');
+                    updateMessage.innerText = "更新成功";
+                }
+                else{
+                    let updateMessage = document.querySelector('#displayInfo2');
+                    updateMessage.innerText = "更新失敗";
                 }
             })
         })

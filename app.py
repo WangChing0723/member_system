@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, json
 from flask import request
 from flask import redirect
 from flask import session
@@ -89,5 +89,25 @@ def api_users():
                         })
     else:
         return jsonify({"data": None})
+
+@app.route("/api/user", methods=["POST"])
+def api_user():
+    current_user = session["account"]
+    request_name = request.get_json()["name"]
+    
+    query_modify_name = "UPDATE website.user SET name = (%s) WHERE username = (%s);"
+    mycursor.execute(query_modify_name, (request_name, current_user))
+    sysdb.commit()
+
+    query_check = "SELECT * FROM website.user WHERE name = (%s) AND username = (%s);"
+    try:
+        mycursor.execute(query_check, (request_name, current_user))
+        check = mycursor.fetchall()
+        if check != []:
+            return jsonify({"ok": True})
+        else:
+            return jsonify({"error": False})
+    except:
+        return jsonify({"error": True})
 
 app.run(port=3000)
