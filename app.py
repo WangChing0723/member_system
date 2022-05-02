@@ -12,9 +12,9 @@ app.config["JSON_AS_ASCII"] = False
 app.secret_key = b'\xe0\xab/0\xd04\xa7l\xf95\xd0\xdc="\x14\xa7'
 
 sysdb = mysql.connector.connect(
-    host = "localhost",
-    user = "root",
-    password = "root"
+    host = "leo-database.mysql.database.azure.com",
+    user = "leo@leo-database",
+    password = "Wang860723"
 )
 
 mycursor = sysdb.cursor()
@@ -110,4 +110,4 @@ def api_user():
     except:
         return jsonify({"error": True})
 
-app.run(port=3000)
+app.run(host='0.0.0.0', port=3000)

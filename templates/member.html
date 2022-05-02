@@ -54,7 +54,7 @@
 <body>
     <header>歡迎光臨，這是會員頁</header>
     <p id="modify">{{name}}，歡迎登入系統</p>
-    <form action="http://127.0.0.1:3000/signout">
+    <form action="http://20.24.70.9:3000/signout">
         <button>登出系統</button>
     </form>
 
@@ -84,7 +84,7 @@
         form.addEventListener('submit', function(e){
             e.preventDefault();
             const searchTerm = form.firstElementChild.username.value;
-            fetch(`http://127.0.0.1:3000/api/users?username=${searchTerm}`)
+            fetch(`http://20.24.70.9:3000/api/users?username=${searchTerm}`)
             .then(res => {
                 return res.json();
             })
@@ -107,7 +107,7 @@
         formUpdate.addEventListener('submit', function(e){
             e.preventDefault();
             const updateTerm = formUpdate.firstElementChild.username.value;
-            fetch("http://127.0.0.1:3000/api/user",
+            fetch("http://20.24.70.9:3000/api/user",
                     {
                         "body": JSON.stringify({"name": updateTerm}),
                         "headers": {"content-type": "application/json"},
