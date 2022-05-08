@@ -6,6 +6,6 @@
 登入系統後可以進行查詢其他會員的姓名或是更新您的名字
 (此系統會同步變更資料庫中的資料)
 
-### 專案架構：
-![](https://app.diagrams.net/#G1le-oHugM6mcRYmZ34jezL3nycNqpviYf)
-此專案主要圍繞Azure的雲端來進行的，
+## 專案架構：
+![image](https://user-images.githubusercontent.com/99674906/167289207-6aa5153b-fdb6-4787-8340-6b91f4675e72.png)
+此專案主要圍繞Azure的雲端來進行的，在雲端建立virtual machine後，將伺服器建立在此機器上。另外一樣透過Azure建立資料庫，避免機器出現問題時無法取得資料，並且在連線的部分設定
