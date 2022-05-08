@@ -8,4 +8,6 @@
 
 ## 專案架構：
 ![image](https://user-images.githubusercontent.com/99674906/167289207-6aa5153b-fdb6-4787-8340-6b91f4675e72.png)
-此專案主要圍繞Azure的雲端來進行的，在雲端建立virtual machine後，將伺服器建立在此機器上。另外一樣透過Azure建立資料庫，避免機器出現問題時無法取得資料，並且在連線的部分設定
+
+此專案主要圍繞Azure的雲端來進行的，在雲端建立virtual machine後，將伺服器建立在此機器上。另外一樣透過Azure建立資料庫，避免機器出現問題時無法取得資料，
+並且對連線設定Network Security來確保其安全性。
